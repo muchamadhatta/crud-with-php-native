@@ -4,12 +4,13 @@
 include('koneksi.php');
 
 //get data dari form
+$id             = $_POST['id'];
 $kdcustomer     = $_POST['kdcustomer'];
 $nmcustomer     = $_POST['nmcustomer'];
 $kota           = $_POST['kota'];
 
 //query update data ke dalam database berdasarkan ID
-$query = "UPDATE customer SET nmcustomer = '$nmcustomer', kota = '$kota' WHERE kdcustomer = '$kdcustomer'";
+$query = "UPDATE customer SET kdcustomer='$kdcustomer', nmcustomer = '$nmcustomer', kota = '$kota' WHERE id = '$id'";
 
 //kondisi pengecekan apakah data berhasil diupdate atau tidak
 if($connection->query($query)) {

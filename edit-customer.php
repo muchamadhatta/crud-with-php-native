@@ -2,27 +2,50 @@
   
   include('koneksi.php');
   
-  $id = $_GET['id'];
+
   
-  $query = "SELECT * FROM customer WHERE kdcustomer = $id LIMIT 1";
+  // $id = $_GET['id'];
+  
+  // $query = "SELECT * FROM customer WHERE kdcustomer = $id LIMIT 1";
 
-  $result = mysqli_query($connection, $query);
+  // $result = mysqli_query($connection, $query);
 
+  // $row = mysqli_fetch_array($result);
+
+  
+
+
+  $id = $_GET['id'];
+  $query = "SELECT * FROM customer WHERE id = ? LIMIT 1";
+
+  $stmt = mysqli_prepare($connection, $query);
+  
+  mysqli_stmt_bind_param($stmt, "i", $id);
+  
+  mysqli_stmt_execute($stmt);
+  
+  $result = mysqli_stmt_get_result($stmt);
+  
   $row = mysqli_fetch_array($result);
 
 
+//   $id = $_GET['id'];
+// $query = "SELECT * FROM customer WHERE kdcustomer = ? LIMIT 1";
 
-  // $query = "SELECT * FROM customer WHERE kdcustomer = ? LIMIT 1";
+// $stmt = mysqli_prepare($connection, $query);
 
-  // $stmt = mysqli_prepare($connection, $query);
+// mysqli_stmt_bind_param($stmt, "s", $id);
+
+// mysqli_stmt_execute($stmt);
+
+// $result = mysqli_stmt_get_result($stmt);
+
+// $row = mysqli_fetch_array($result);
+
+
+
   
-  // mysqli_stmt_bind_param($stmt, "i", $id);
   
-  // mysqli_stmt_execute($stmt);
-  
-  // $result = mysqli_stmt_get_result($stmt);
-  
-  // $row = mysqli_fetch_array($result);
   ?>
 
 <!doctype html>
@@ -35,7 +58,8 @@
   </head>
 
   <body>
-
+<?php //echo var_dump($id) ?>
+<?php //echo var_dump($row) ?>
     <div class="container" style="margin-top: 80px">
       <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -46,11 +70,16 @@
             <div class="card-body">
               <form action="update-customer.php" method="POST">
 
+            
+              <div class="form-group">
+                  <label>Kode Customer</label>
+                  <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                  <input type="text" name="kdcustomer" value="<?php echo $row['kdcustomer'] ?>" placeholder="Masukkan Kode Customer" class="form-control">
+                </div>
 
                 <div class="form-group">
                   <label>Nama Customer</label>
                   <input type="text" name="nmcustomer" value="<?php echo $row['nmcustomer'] ?>" placeholder="Masukkan Nama Customer" class="form-control">
-                  <input type="hidden" name="kdcustomer" value="<?php echo $row['kdcustomer'] ?>">
                 </div>
 
                 <div class="form-group">

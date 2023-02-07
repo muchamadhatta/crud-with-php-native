@@ -1,59 +1,69 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <title>Data Barang</title>
-  </head>
 
-  <body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <title>Data Barang</title>
+</head>
 
-    <div class="container" style="margin-top: 80px">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              DATA BARANG
-            </div>
-            <div class="card-body">
-              <a href="tambah-customer.php" class="btn btn-md btn-success" style="margin-bottom: 10px">TAMBAH DATA</a>
-              <a href="index.php" class="btn btn-md btn-info" style="margin-bottom: 10px">MENU UTAMA</a>
-              <table class="table table-bordered" id="myTable">
-                <thead>
-                  <tr>
-                    <th scope="col">NO.</th>
-                    <th scope="col">KODE CUSTOMER</th>
-                    <th scope="col">NAMA CUSTOMER</th>
-                    <th scope="col">KOTA</th>
-                    <th scope="col">AKSI</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php 
-                      include('koneksi.php');
-                      $no = 1;
-                      $query = mysqli_query($connection,"SELECT * FROM customer");
-                      while($row = mysqli_fetch_array($query)){
+<body>
+
+  <div class="container" style="margin-top: 80px">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            DATA BARANG
+          </div>
+          <div class="card-body">
+            <a href="tambah-barang.php" class="btn btn-md btn-success" style="margin-bottom: 10px">TAMBAH DATA</a>
+            <a href="index.php" class="btn btn-md btn-info" style="margin-bottom: 10px">MENU UTAMA</a>
+            <table class="table table-bordered" id="myTable">
+              <thead>
+                <tr>
+                  <th scope="col">NO.</th>
+                  <th scope="col">KODE BARANG</th>
+                  <th scope="col">NAMA BARANG</th>
+                  <th scope="col">STOK</th>
+                  <th scope="col">AKSI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                include('koneksi.php');
+                $no = 1;
+                $query = mysqli_query($connection, "SELECT * FROM barang");
+                while ($row = mysqli_fetch_array($query)) {
                   ?>
-
                   <tr>
-                      <td><?php echo $no++ ?></td>
-                      <td><?php echo $row['kdcustomer'] ?></td>
-                      <td><?php echo $row['nmcustomer'] ?></td>
-                      <td><?php echo $row['kota'] ?></td>
-                      <td class="text-center">
-                        <a href="edit-customer.php?id=<?php echo $row['kdcustomer'] ?>" class="btn btn-sm btn-primary">EDIT</a>
-                        <a href="hapus-customer.php?id=<?php echo $row['kdcustomer'] ?>" class="btn btn-sm btn-danger">HAPUS</a>
-                      </td>
+                    <td>
+                      <?php echo $no++ ?>
+                    </td>
+                    <td>
+                      <?php echo $row['kdbarang'] ?>
+                    </td>
+                    <td>
+                      <?php echo $row['nmbarang'] ?>
+                    </td>
+                    <td>
+                      <?php echo $row['stok'] ?>
+                    </td>
+                    <td class="text-center">
+                      <a href="edit-barang.php?id=<?php echo $row['id'] ?>"
+                        class="btn btn-sm btn-primary">EDIT</a>
+                      <a href="hapus-barang.php?id=<?php echo $row['id'] ?>"
+                        class="btn btn-sm btn-danger">HAPUS</a>
+                    </td>
                   </tr>
 
                 <?php } ?>
-                </tbody>
-              </table>
-            </div>
+              </tbody>
+            </table>
           </div>
+        </div>
       </div>
     </div>
 
@@ -61,9 +71,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script>
-      $(document).ready( function () {
-          $('#myTable').DataTable();
-      } );
+      $(document).ready(function () {
+        $('#myTable').DataTable();
+      });
     </script>
-  </body>
+</body>
+
 </html>
